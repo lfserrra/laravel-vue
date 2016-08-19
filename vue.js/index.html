@@ -3,32 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title>Code Contas</title>
+    <style>
+
+        .verde{color: green}
+        .cinza{color: grey}
+        .vermelho{color: red}
+
+        .pago{
+            color: green;
+        }
+
+        .nao-pago{
+            color: red;
+        }
+    </style>
 </head>
 <body id="app">
 
 <h1>{{ title }}</h1>
-<h3>{{ status }}</h3>
+<h3 :class="corStatus">{{ status }}</h3>
 
-<table border="1" cellpadding="10">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>Vencimento</th>
-        <th>Nome</th>
-        <th>Valor</th>
-        <th>Pago?</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="(i, bill) in bills">
-        <td>{{ i + 1 }}</td>
-        <td>{{ bill.data_due }}</td>
-        <td>{{ bill.name }}</td>
-        <td>{{ bill.value }}</td>
-        <td>{{ bill.done }}</td>
-    </tr>
-    </tbody>
-</table>
+<nav>
+    <ul>
+        <li v-for="menu in menus">
+            <a href="#" @click.prevent="showView(menu)">{{ menu.name }}</a>
+        </li>
+    </ul>
+</nav>
+
+<div v-if="activeView == 0">
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Vencimento</th>
+            <th>Nome</th>
+            <th>Valor</th>
+            <th>Pago?</th>
+            <th colspan="2">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(i, bill) in bills">
+            <td>{{ i + 1 }}</td>
+            <td>{{ bill.data_due }}</td>
+            <td>{{ bill.name }}</td>
+            <td>{{ bill.value | currency 'R$ ' 2}}</td>
+            <td :class="{'pago': bill.done, 'nao-pago': !bill.done}">
+                <input type="checkbox" v-model="bill.done" :true-value="1" :false-value="0">
+                {{ bill.done | doneLabel }}
+            </td>
+            <td>
+                <button type="button" @click.prevent="loadBill(bill)">Editar</button>
+            </td>
+            <td>
+                <button type="button" @click.prevent="excluir(bill)">Excluir</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div v-if="activeView == 1">
+    <form @submit.prevent="submit">
+        <label>Vencimento: </label>
+        <input type="text" v-model="bill.data_due">
+
+        <br><br>
+
+        <label>Conta: </label>
+        <select v-model="bill.name">
+            <option v-for="name in names" :value="name">{{ name }}</option>
+        </select>
+
+        <br><br>
+
+        <label>Valor: </label>
+        <input type="text" v-model="bill.value">
+
+        <br><br><br><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+</div>
 
 <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
 <script type="text/javascript" src="app.js"></script>
