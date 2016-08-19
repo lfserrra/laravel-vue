@@ -81,6 +81,10 @@
         <label>Valor: </label>
         <input type="text" v-model="bill.value">
 
+        <br><br>
+
+        Pago? <input type="checkbox" v-model="bill.done" :true-value="1" :false-value="0">
+
         <br><br><br><br>
 
         <button type="submit">Enviar</button>
