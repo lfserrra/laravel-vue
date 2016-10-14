@@ -33,6 +33,11 @@ var mainComponent = Vue.extend({
 });
 
 router.map({
+    '/': {
+        name: 'dashboard',
+        component: dashboardComponent
+    },
+
     '/bill-pays': {
         component: billPayComponent,
         subRoutes: {
@@ -74,7 +79,7 @@ router.map({
     },
 
     '*': {
-        component: billPayListComponent
+        component: dashboardComponent
     }
 
 });
@@ -86,5 +91,5 @@ router.start({
 }, '#app');
 
 router.redirect({
-    '*': '/bill-pays'
+    '*': '/'
 });

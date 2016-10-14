@@ -69,7 +69,7 @@ var billPayCreateComponent = Vue.extend({
                 done: false
             };
 
-            this.$router.go({name: 'bill.list'});
+            this.$router.go({name: 'bill-pay.list'});
         },
 
         getBill: function (index) {
