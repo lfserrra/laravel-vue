@@ -1,4 +1,4 @@
-window.billListComponent = Vue.extend({
+window.billPayListComponent = Vue.extend({
     template: `
     <style>
         .pago{color: green;}
@@ -27,10 +27,10 @@ window.billListComponent = Vue.extend({
                 {{ bill.done | doneLabel }}
             </td>
             <td>
-                <button type="button" @click.prevent="loadBill(bill)">Editar</button>
+                <a v-link="{name: 'bill-pay.update', params: {index: i}}">Editar</a>
             </td>
             <td>
-                <button type="button" @click.prevent="excluir(bill)">Excluir</button>
+                <button type="button" @click.prevent="deleteBill(bill)">Excluir</button>
             </td>
         </tr>
         </tbody>
@@ -38,26 +38,15 @@ window.billListComponent = Vue.extend({
 
     data: function () {
         return {
-            bills: this.$root.$children[0].bills
+            bills: this.$root.$children[0].billsPay
         };
     },
 
     methods: {
-        loadBill: function (bill) {
-            this.$dispatch('change-bill', bill);
-            this.$dispatch('change-formType', 'update');
-        },
-
-        excluir: function (bill) {
+        deleteBill: function (bill) {
             if (confirm("Tem certeza que deseja excluir esse registro?")) {
-                this.bills.$remove(bill);
+                this.$root.$children[0].billsPay.$remove(bill);
             }
         },
     },
-
-    events: {
-        'new-bill': function (bill) {
-            this.bills.push(bill);
-        }
-    }
 });

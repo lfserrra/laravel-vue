@@ -1,4 +1,4 @@
-var billCreateComponent = Vue.extend({
+var billPayCreateComponent = Vue.extend({
     template: `
     <form @submit.prevent="submit">
         <label>Vencimento: </label>
@@ -26,8 +26,6 @@ var billCreateComponent = Vue.extend({
     </form>
     `,
 
-    props: ['bill'],
-
     data: function () {
         return {
             names: [
@@ -44,41 +42,44 @@ var billCreateComponent = Vue.extend({
                 data_due: '',
                 name: '',
                 value: 0,
-                done: 0
+                done: false
             },
 
             formType: 'insert'
         };
     },
 
+    created: function () {
+        if (this.$route.name == 'bill-pay.update') {
+            this.formType = 'update';
+            this.getBill(this.$route.params.index);
+        }
+    },
+
     methods: {
         submit: function () {
             if (this.formType == 'insert') {
-                this.$dispatch('new-bill', this.bill)
+                this.$root.$children[0].billsPay.push(this.bill);
             }
 
-            this.$dispatch('clear-form-bill');
-        },
-    },
-
-    events: {
-        'change-formType': function (formType) {
-            this.formType = formType;
-        },
-
-        'change-bill': function (bill) {
-            this.bill = bill;
-        },
-
-        'clear-form-bill': function () {
             this.bill = {
                 data_due: '',
                 name: '',
                 value: 0,
-                done: 0
+                done: false
             };
 
-            this.$dispatch('change-formType', 'insert');
+            this.$router.go({name: 'bill.list'});
+        },
+
+        getBill: function (index) {
+            this.bill = this.$root.$children[0].billsPay[index];
+        }
+    },
+
+    events: {
+        'change-bill': function (bill) {
+            this.bill = bill;
         }
     }
 });
