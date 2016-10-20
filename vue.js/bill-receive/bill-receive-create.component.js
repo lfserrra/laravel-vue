@@ -2,7 +2,7 @@ var billReceiveCreateComponent = Vue.extend({
     template: `
     <form @submit.prevent="submit">
         <label>Vencimento: </label>
-        <input type="text" v-model="bill.data_due">
+        <input type="text" v-model="bill.date_due">
 
         <br><br>
 
@@ -39,7 +39,7 @@ var billReceiveCreateComponent = Vue.extend({
             ],
 
             bill: {
-                data_due: '',
+                date_due: '',
                 name: '',
                 value: 0,
                 done: false
@@ -63,7 +63,7 @@ var billReceiveCreateComponent = Vue.extend({
             }
 
             this.bill = {
-                data_due: '',
+                date_due: '',
                 name: '',
                 value: 0,
                 done: false

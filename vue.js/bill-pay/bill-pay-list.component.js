@@ -19,15 +19,14 @@ window.billPayListComponent = Vue.extend({
         <tbody>
         <tr v-for="(i, bill) in bills">
             <td>{{ i + 1 }}</td>
-            <td>{{ bill.data_due }}</td>
+            <td>{{ bill.date_due }}</td>
             <td>{{ bill.name }}</td>
             <td>{{ bill.value | currency 'R$ ' 2}}</td>
             <td :class="{'pago': bill.done, 'nao-pago': !bill.done}">
-                <input type="checkbox" v-model="bill.done" :true-value="1" :false-value="0">
                 {{ bill.done | doneLabel }}
             </td>
             <td>
-                <a v-link="{name: 'bill-pay.update', params: {index: i}}">Editar</a>
+                <a v-link="{name: 'bill-pay.update', params: {id: bill.id}}">Editar</a>
             </td>
             <td>
                 <button type="button" @click.prevent="deleteBill(bill)">Excluir</button>
@@ -38,15 +37,29 @@ window.billPayListComponent = Vue.extend({
 
     data: function () {
         return {
-            bills: this.$root.$children[0].billsPay
+            bills: []
         };
+    },
+
+    created: function(){
+        var self = this;
+
+        BillPay.query().then(function(response){
+            self.bills = response.data;
+        })
     },
 
     methods: {
         deleteBill: function (bill) {
             if (confirm("Tem certeza que deseja excluir esse registro?")) {
-                this.$root.$children[0].billsPay.$remove(bill);
+                var self = this;
+
+                BillPay.delete({id: bill.id}).then(function(response){
+                    self.bills.$remove(bill);
+
+                    self.$dispatch('change-info');
+                });
             }
-        },
+        }
     },
 });
