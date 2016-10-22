@@ -57,9 +57,9 @@ window.billPayListComponent = Vue.extend({
                 BillPay.delete({id: bill.id}).then(function(response){
                     self.bills.$remove(bill);
 
-                    self.$dispatch('change-info');
+                    self.$dispatch('change-info-bill-pay');
                 });
             }
         }
-    },
+    }
 });

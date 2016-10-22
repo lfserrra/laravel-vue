@@ -66,7 +66,7 @@ window.billPayComponent = Vue.extend({
     },
 
     events: {
-        'change-info': function(){
+        'change-info-bill-pay': function(){
             this.updateStatus();
             this.updateTotal();
         }
