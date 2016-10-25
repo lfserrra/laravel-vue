@@ -9,12 +9,12 @@ window.billReceiveMenuComponent = Vue.extend({
     </nav>
     `,
 
-    data: function () {
+    data() {
         return {
             menus: [
                 {id: 0, name: 'Listar contas', routeName: 'bill-receive.list'},
                 {id: 1, name: 'Criar conta', routeName: 'bill-receive.create'}
-            ],
+            ]
         };
     }
 });

@@ -1,3 +1,5 @@
+'use strict';
+
 var router = new VueRouter();
 
 router.map({

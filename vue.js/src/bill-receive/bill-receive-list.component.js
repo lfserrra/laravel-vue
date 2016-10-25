@@ -19,9 +19,9 @@ window.billReceiveListComponent = Vue.extend({
         <tbody>
         <tr v-for="(i, bill) in bills">
             <td>{{ i + 1 }}</td>
-            <td>{{ bill.date_due }}</td>
-            <td>{{ bill.name }}</td>
-            <td>{{ bill.value | currency 'R$ ' 2}}</td>
+            <td>{{ bill.date_due | dateFormat 'pt-BR' }}</td>
+            <td>{{ bill.name | upperFormat}}</td>
+            <td>{{ bill.value | numberFormat 'pt-BR' }}</td>
             <td :class="{'pago': bill.done, 'nao-pago': !bill.done}">
                 {{ bill.done | doneLabel }}
             </td>
@@ -35,29 +35,25 @@ window.billReceiveListComponent = Vue.extend({
         </tbody>
     </table>`,
 
-    data: function () {
+    data() {
         return {
             bills: []
         };
     },
 
-    created: function(){
-        var self = this;
-
-        BillReceive.query().then(function(response){
-            self.bills = response.data;
+    created(){
+        BillReceive.query().then((response) => {
+            this.bills = response.data;
         })
     },
 
     methods: {
-        deleteBill: function (bill) {
+        deleteBill(bill) {
             if (confirm("Tem certeza que deseja excluir esse registro?")) {
-                var self = this;
+                BillReceive.delete({id: bill.id}).then((response) => {
+                    this.bills.$remove(bill);
 
-                BillReceive.delete({id: bill.id}).then(function(response){
-                    self.bills.$remove(bill);
-
-                    self.$dispatch('change-info-bill-receive');
+                    this.$dispatch('change-info-bill-receive');
                 });
             }
         }

@@ -26,14 +26,12 @@ window.dashboardComponent = Vue.extend({
     },
 
     created: function(){
-        var self = this;
-
-        BillReceive.total().then(function(response){
-            self.receive = response.data.total;
+        BillReceive.total().then((response) => {
+            this.receive = response.data.total;
         });
 
-        BillPay.total().then(function(response){
-            self.pay = response.data.total;
+        BillPay.total().then((response) => {
+            this.pay = response.data.total;
         });
     }
 });
