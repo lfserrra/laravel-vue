@@ -5,7 +5,7 @@ window.billPayComponent = Vue.extend({
         'menu-component': billPayMenuComponent
     },
 
-    template: '\n    <style>\n        .green{color: green}\n        .grey{color: grey}\n        .red{color: red}\n    </style>\n\n    <h1>{{ title }}</h1>\n    <h3 :class="{\'grey\': status === false, \'green\': status === 0, \'red\': status > 0}">{{ status | payStatusGeneral }}</h3>\n    <h3>{{ total | currency \'R$ \' }}</h3>\n\n    <menu-component></menu-component>\n    <router-view></router-view>\n    ',
+    template: '\n    <style>\n        .green{color: green}\n        .grey{color: grey}\n        .red{color: red}\n    </style>\n\n    <div class="section">\n        <div class="container">\n            <h1>{{ title }}</h1>\n            <h3 :class="{\'grey\': status === false, \'green\': status === 0, \'red\': status > 0}">{{ status | payStatusGeneral }}</h3>\n            <h3>{{ total | currency \'R$ \' }}</h3>\n\n            <menu-component></menu-component>\n        </div>\n    </div>\n\n    <router-view></router-view>\n    ',
 
     data: function data() {
         return {
