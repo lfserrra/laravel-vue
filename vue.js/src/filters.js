@@ -1,4 +1,4 @@
-Vue.filter('doneLabel', (value) => (value == 1) ? 'Sim' : 'Não');
+Vue.filter('doneLabel', (value) => (value == 1) ? 'Paga' : 'Não Paga');
 
 Vue.filter('payStatusGeneral', (value) => {
     if (value === false) {
@@ -13,7 +13,7 @@ Vue.filter('payStatusGeneral', (value) => {
         return 'Existe 1 conta a pagar';
     }
 
-    return 'Existem ' + value + ' contas a pagar';
+    return value + ' contas a pagar';
 });
 
 Vue.filter('receiveStatusGeneral', (value) => {
@@ -29,7 +29,7 @@ Vue.filter('receiveStatusGeneral', (value) => {
         return 'Existe 1 conta a receber';
     }
 
-    return 'Existem ' + value + ' contas a receber';
+    return value + ' contas a receber';
 });
 
 Vue.filter('numberFormat', {

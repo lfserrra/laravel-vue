@@ -5,6 +5,12 @@ window.billComponent = Vue.extend({
             <a v-link="{name: item.routeName}">{{ item.name }}</a>
         </li>
     </ul>
+    
+    <ul v-bind:id="menu.id + '-mobile'" class="dropdown-content" v-for="menu in menusDropdown">
+        <li v-for="item in menu.items">
+            <a v-link="{name: item.routeName}">{{ item.name }}</a>
+        </li>
+    </ul>
 
     <div class="navbar-fixed">
         <nav>
@@ -27,7 +33,7 @@ window.billComponent = Vue.extend({
 
                 <ul id="nav-mobile" class="side-nav">
                     <li v-for="menu in menus">
-                        <a v-if="menu.dropdownId" class="dropdown-button" href="!#" v-bind:data-activates="menu.dropdownId">
+                        <a v-if="menu.dropdownId" class="dropdown-button" href="!#" v-bind:data-activates="menu.dropdownId + '-mobile'">
                             {{ menu.name }}
                         </a>
 
@@ -44,7 +50,7 @@ window.billComponent = Vue.extend({
     ready(){
         $(document).ready(function () {
             $('.button-collapse').sideNav();
-            $('.dropdown-content').dropdown();
+            $('.dropdown-button').dropdown();
         });
     },
 

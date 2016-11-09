@@ -1,22 +1,14 @@
 window.billPayListComponent = Vue.extend({
+    components: {
+        'modal': modalComponent
+    },
+
     template: `
-    <style>
-        .pago{color: green;}
-        .nao-pago{color: red;}
-    </style>
-
     <div class="container">
+        <h3>Minhas contas a pagar</h3>
+        
         <div class="row">
-            <div class="col s2 m10 l12">
-                Laravel com Vue
-            </div>
-
-            <div class="col s10 m2 l12">
-                Na Code Education
-            </div>
-        </div>
-        <div class="row">
-            <table class="bordered highlight centered responsive-table">
+            <table class="bordered highlight centered">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -33,43 +25,70 @@ window.billPayListComponent = Vue.extend({
                         <td>{{ bill.date_due | dateFormat 'pt-BR' }}</td>
                         <td>{{ bill.name | upperFormat }}</td>
                         <td>{{ bill.value | numberFormat 'pt-BR'}}</td>
-                        <td :class="{'pago': bill.done, 'nao-pago': !bill.done}">
+                        <td class="white-text" :class="{'green lighten-2': bill.done, 'red lighten-2': !bill.done}">
                             {{ bill.done | doneLabel }}
                         </td>
                         <td>
                             <a v-link="{name: 'bill-pay.update', params: {id: bill.id}}">Editar</a>
                         </td>
                         <td>
-                            <button type="button" @click.prevent="deleteBill(bill)">Excluir</button>
+                            <button type="button" @click.prevent="openModalDelete(bill)">Excluir</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    
+    <modal :modal="modal">
+        <div slot="content">
+            <h4>Mensagem de confirmação</h4>
+            <p><strong>Deseja excluir esta conta?</strong></p>
+            <div class="divider"></div>
+            
+            <p>Nome: <strong>{{billToDelete.name}}</strong></p>
+            <p>Valor: <strong>{{billToDelete.value | numberFormat}}</strong></p>
+            <p>Data de vencimento: <strong>{{billToDelete.date_due | dateFormat}}</strong></p>
+            
+            <div class="divider"></div>
+        </div>
+        
+        <div slot="footer">
+            <button class="btn btn-flat waves-effect green lighten-2 modal-close modal-action" @click.prevent="deleteBill()">Ok</button>
+            <button class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
+        </div>
+    </modal>
     `,
 
     data() {
         return {
-            bills: []
+            bills: [],
+            billToDelete: null,
+            modal: {
+                id: 'modal-delete'
+            }
         };
     },
 
     created(){
         BillPay.query().then((response) => {
             this.bills = response.data;
-        })
+        });
     },
 
     methods: {
-        deleteBill(bill) {
-            if (confirm("Tem certeza que deseja excluir esse registro?")) {
-                BillPay.delete({id: bill.id}).then((response) => {
-                    this.bills.$remove(bill);
+        deleteBill() {
+            BillPay.delete({id: this.billToDelete.id}).then((response) => {
+                this.bills.$remove(this.billToDelete);
+                this.billToDelete = null;
+                Materialize.toast('Conta excluída com sucesso', 4000);
+                this.$dispatch('change-info-bill-pay');
+            });
+        },
 
-                    this.$dispatch('change-info-bill-pay');
-                });
-            }
+        openModalDelete(bill){
+            this.billToDelete = bill;
+            $('#modal-delete').openModal();
         }
     }
 });

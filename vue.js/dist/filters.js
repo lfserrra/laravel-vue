@@ -3,7 +3,7 @@
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Vue.filter('doneLabel', function (value) {
-    return value == 1 ? 'Sim' : 'Não';
+    return value == 1 ? 'Paga' : 'Não Paga';
 });
 
 Vue.filter('payStatusGeneral', function (value) {
@@ -19,7 +19,7 @@ Vue.filter('payStatusGeneral', function (value) {
         return 'Existe 1 conta a pagar';
     }
 
-    return 'Existem ' + value + ' contas a pagar';
+    return value + ' contas a pagar';
 });
 
 Vue.filter('receiveStatusGeneral', function (value) {
@@ -35,7 +35,7 @@ Vue.filter('receiveStatusGeneral', function (value) {
         return 'Existe 1 conta a receber';
     }
 
-    return 'Existem ' + value + ' contas a receber';
+    return value + ' contas a receber';
 });
 
 Vue.filter('numberFormat', {
