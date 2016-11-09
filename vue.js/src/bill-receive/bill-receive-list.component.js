@@ -1,43 +1,72 @@
 window.billReceiveListComponent = Vue.extend({
-    template: `
-    <style>
-        .pago{color: green;}
-        .nao-pago{color: red;}
-    </style>
+    components: {
+        'modal': modalComponent
+    },
 
-    <table>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Vencimento</th>
-                <th>Nome</th>
-                <th>Valor</th>
-                <th>Pago?</th>
-                <th colspan="2">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(i, bill) in bills">
-                <td>{{ i + 1 }}</td>
-                <td>{{ bill.date_due | dateFormat 'pt-BR' }}</td>
-                <td>{{ bill.name | upperFormat}}</td>
-                <td>{{ bill.value | numberFormat 'pt-BR' }}</td>
-                <td :class="{'pago': bill.done, 'nao-pago': !bill.done}">
-                    {{ bill.done | doneLabel }}
-                </td>
-                <td>
-                    <a v-link="{name: 'bill-receive.update', params: {id: bill.id}}">Editar</a>
-                </td>
-                <td>
-                    <button type="button" @click.prevent="deleteBill(bill)">Excluir</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>`,
+    template: `
+    <div class="container">
+        <h3>Minhas contas a receber</h3>
+        
+        <div class="row">
+            <table class="bordered highlight centered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Vencimento</th>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Pago?</th>
+                        <th colspan="2">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(i, bill) in bills">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ bill.date_due | dateFormat 'pt-BR' }}</td>
+                        <td>{{ bill.name | upperFormat }}</td>
+                        <td>{{ bill.value | numberFormat 'pt-BR'}}</td>
+                        <td class="white-text" :class="{'green lighten-2': bill.done, 'red lighten-2': !bill.done}">
+                            {{ bill.done | doneLabel }}
+                        </td>
+                        <td>
+                            <a v-link="{name: 'bill-receive.update', params: {id: bill.id}}">Editar</a>
+                        </td>
+                        <td>
+                            <button type="button" @click.prevent="openModalDelete(bill)">Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <modal :modal="modal">
+        <div slot="content">
+            <h4>Mensagem de confirmação</h4>
+            <p><strong>Deseja excluir esta conta?</strong></p>
+            <div class="divider"></div>
+            
+            <p>Nome: <strong>{{billToDelete.name}}</strong></p>
+            <p>Valor: <strong>{{billToDelete.value | numberFormat}}</strong></p>
+            <p>Data de vencimento: <strong>{{billToDelete.date_due | dateFormat}}</strong></p>
+            
+            <div class="divider"></div>
+        </div>
+        
+        <div slot="footer">
+            <button class="btn btn-flat waves-effect green lighten-2 modal-close modal-action" @click.prevent="deleteBill()">Ok</button>
+            <button class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
+        </div>
+    </modal>
+    `,
 
     data() {
         return {
-            bills: []
+            bills: [],
+            billToDelete: null,
+            modal: {
+                id: 'modal-delete'
+            }
         };
     },
 
@@ -48,14 +77,18 @@ window.billReceiveListComponent = Vue.extend({
     },
 
     methods: {
-        deleteBill(bill) {
-            if (confirm("Tem certeza que deseja excluir esse registro?")) {
-                BillReceive.delete({id: bill.id}).then((response) => {
-                    this.bills.$remove(bill);
+        deleteBill() {
+            BillReceive.delete({id: this.billToDelete.id}).then((response) => {
+                this.bills.$remove(this.billToDelete);
+                this.billToDelete = null;
+                Materialize.toast('Conta excluída com sucesso', 4000);
+                this.$dispatch('change-info-bill-receive');
+            });
+        },
 
-                    this.$dispatch('change-info-bill-receive');
-                });
-            }
+        openModalDelete(bill){
+            this.billToDelete = bill;
+            $('#modal-delete').openModal();
         }
     }
 });
