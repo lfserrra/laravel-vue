@@ -16,7 +16,7 @@ window.billPayListComponent = Vue.extend({
                         <th>Nome</th>
                         <th>Valor</th>
                         <th>Pago?</th>
-                        <th colspan="2">Ações</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,10 +29,13 @@ window.billPayListComponent = Vue.extend({
                             {{ bill.done | doneLabel }}
                         </td>
                         <td>
-                            <a v-link="{name: 'bill-pay.update', params: {id: bill.id}}">Editar</a>
-                        </td>
-                        <td>
-                            <button type="button" @click.prevent="openModalDelete(bill)">Excluir</button>
+                            <a v-link="{name: 'bill-pay.update', params: {id: bill.id}}" class="btn waves-effect waves-light">
+                                <i class="material-icons">mode_edit</i>
+                            </a>
+                            
+                            <button type="button" @click.prevent="openModalDelete(bill)" class="btn red waves-effect waves-light">
+                                <i class="material-icons">delete</i>
+                            </button>
                         </td>
                     </tr>
                 </tbody>

@@ -45,6 +45,38 @@ window.billComponent = Vue.extend({
     </div>
 
     <router-view></router-view>
+    
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Financeiro</h5>
+                    <p class="grey-text text-lighten-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis pellentesque enim rhoncus venenatis vitae vitae tellus. Suspendisse potenti. Mauris molestie lectus id turpis feugiat rhoncus. Praesent sodales lacinia turpis, ac vehicula est luctus sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id dictum metus. Etiam dictum mi et ex egestas hendrerit. Etiam risus nisl
+                    </p>
+                </div>
+                
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#!">Contas a Pagar - Listar</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Contas a Pagar - Novo</a></li>
+                        <li><hr></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Contas a Receber - Listar</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Contas a Receber - Novo</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-copyright">
+            <div class="container">
+                © Code education
+                <a v-link="{name: 'dashboard'}" class="grey-text text-lighten-4 right">Dashboard</a>
+            </div>
+        </div>
+    </footer>
     `,
 
     ready(){
