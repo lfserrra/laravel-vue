@@ -1,0 +1,6 @@
+.dropdown-content {
+  @extend .z-depth-1;
+
+  top: inherit !important;
+  margin-top: -1px !important;
+}

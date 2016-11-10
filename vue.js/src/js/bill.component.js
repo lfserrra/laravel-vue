@@ -22,7 +22,7 @@ window.billComponent = Vue.extend({
 
                 <ul class="left hide-on-med-and-down">
                     <li v-for="menu in menus">
-                        <a v-if="menu.dropdownId" class="dropdown-button" href="!#" v-bind:data-activates="menu.dropdownId">
+                        <a v-if="menu.dropdownId" class="dropdown-button" data-beloworigin="true" data-hover="true" href="!#" v-bind:data-activates="menu.dropdownId">
                             {{ menu.name }}
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
