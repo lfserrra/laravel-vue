@@ -1,4 +1,4 @@
-window.dashboardComponent = Vue.extend({
+module.exports = {
     template: `
     <div class="section">
         <div class="container">
@@ -55,7 +55,7 @@ window.dashboardComponent = Vue.extend({
         };
     },
 
-    created: function(){
+    created: function () {
         BillReceive.total().then((response) => {
             this.receive = response.data.total;
         });
@@ -64,4 +64,4 @@ window.dashboardComponent = Vue.extend({
             this.pay = response.data.total;
         });
     }
-});
+};

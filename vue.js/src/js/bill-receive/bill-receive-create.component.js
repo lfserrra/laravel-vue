@@ -8,7 +8,7 @@ const names = [
     'Gasolina'
 ];
 
-window.billReceiveCreateComponent = Vue.extend({
+module.exports = {
     template: `
     <div class="container">
         <h3>{{ title }}</h3>
@@ -103,4 +103,4 @@ window.billReceiveCreateComponent = Vue.extend({
             });
         }
     }
-});
+};
