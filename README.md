@@ -30,3 +30,14 @@ sudo npm install -g gulp-cli
 cd vue.js
 sudo npm install
 ```
+
+### Update NodeJS to 6
+```shell
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+### Install WebPack
+```shell
+sudo npm install -g webpack
+```
