@@ -8,6 +8,8 @@ const names = [
     'Gasolina'
 ];
 
+let BillReceiveClass = require('./BillReceiveClass');
+
 module.exports = {
     template: `
     <div class="container">
@@ -68,10 +70,10 @@ module.exports = {
             this.title = 'Editar conta';
             this.getBill(this.$route.params.id);
         }
+    },
 
-        $(document).ready(function () {
-            $('#name').material_select();
-        });
+    ready(){
+        $('#name').material_select();
     },
 
     methods: {
@@ -86,8 +88,8 @@ module.exports = {
 
                     this.$router.go({name: 'bill-receive.list'});
                 });
-            }else{
-                BillReceive.update({id: this.bill.id}, data).then((response) =>{
+            } else {
+                BillReceive.update({id: this.bill.id}, data).then((response) => {
                     Materialize.toast('Conta editada com sucesso', 4000);
 
                     this.$dispatch('change-info-bill-receive');

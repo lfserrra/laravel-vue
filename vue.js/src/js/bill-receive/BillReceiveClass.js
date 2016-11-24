@@ -1,4 +1,4 @@
-class BillReceiveClass {
+module.exports = class BillReceiveClass {
     constructor(data = {}) {
         this.date_due = '';
         this.name = '';

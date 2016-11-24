@@ -93,7 +93,10 @@ module.exports = {
 
         openModalDelete(bill){
             this.billToDelete = bill;
-            $('#modal-delete').openModal();
+
+            $(document).ready(function () {
+                $('#modal-delete').openModal();
+            });
         }
     }
 };

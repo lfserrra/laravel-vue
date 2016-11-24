@@ -80,10 +80,8 @@ module.exports = {
     `,
 
     ready(){
-        $(document).ready(function () {
-            $('.button-collapse').sideNav();
-            $('.dropdown-button').dropdown();
-        });
+        $('.button-collapse').sideNav();
+        $('.dropdown-button').dropdown();
     },
 
     data() {

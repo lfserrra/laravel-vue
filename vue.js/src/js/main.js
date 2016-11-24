@@ -1,6 +1,7 @@
+require('../sass/app.scss');
+
 require('./resources');
 require('./filters');
-require('./bill-pay/BillPayClass');
 require('./bill-receive/BillReceiveClass');
 
 require(

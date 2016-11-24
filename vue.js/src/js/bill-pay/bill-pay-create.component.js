@@ -8,6 +8,8 @@ const names = [
     'Gasolina'
 ];
 
+let BillPayClass = require('./BillPayClass');
+
 module.exports = {
     template: `
     <div class="container">
@@ -68,10 +70,10 @@ module.exports = {
             this.title = 'Editar conta';
             this.getBill(this.$route.params.id);
         }
+    },
 
-        $(document).ready(function () {
-            $('#name').material_select();
-        });
+    ready(){
+        $('#name').material_select();
     },
 
     methods: {
