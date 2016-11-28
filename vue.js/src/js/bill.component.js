@@ -16,9 +16,7 @@ module.exports = {
         <nav>
             <div class="nav-wrapper container">
                 <a href="#" class="brand-logo right">Code Contas</a>
-                <a href="#" data-activates="nav-mobile" class="button-collapse left">
-                    <i class="material-icons">menu</i>
-                </a>
+                <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
 
                 <ul class="left hide-on-med-and-down">
                     <li v-for="menu in menus">
@@ -31,7 +29,7 @@ module.exports = {
                     </li>
                 </ul>
 
-                <ul id="nav-mobile" class="side-nav">
+                <ul id="slide-out" class="side-nav">
                     <li v-for="menu in menus">
                         <a v-if="menu.dropdownId" class="dropdown-button" href="!#" v-bind:data-activates="menu.dropdownId + '-mobile'">
                             {{ menu.name }}
@@ -80,7 +78,9 @@ module.exports = {
     `,
 
     ready(){
-        $('.button-collapse').sideNav();
+        $(".button-collapse").sideNav({
+            draggable: true
+        });
         $('.dropdown-button').dropdown();
     },
 

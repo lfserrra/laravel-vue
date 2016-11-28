@@ -81,6 +81,10 @@ module.exports = {
         });
     },
 
+    ready(){
+        $(`#${this.modal.id}`).modal();
+    },
+
     methods: {
         deleteBill() {
             BillPay.delete({id: this.billToDelete.id}).then((response) => {
@@ -94,9 +98,7 @@ module.exports = {
         openModalDelete(bill){
             this.billToDelete = bill;
 
-            $(document).ready(function () {
-                $('#modal-delete').openModal();
-            });
+            $(`#${this.modal.id}`).modal('open');
         }
     }
 };
