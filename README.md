@@ -8,7 +8,7 @@ sudo apt-get install -y nodejs
 
 ### Install NPM Globals Dependences
 ```shell
-sudo npm install -g lite-server babel-cli concurrently node-sass gulp-cli webpack
+sudo npm install -g lite-server babel-cli concurrently node-sass gulp-cli webpack webpack-dev-server
 ```
 
 ### Install NPM Dependences
@@ -45,4 +45,9 @@ npm install file-loader --save-dev --no-bin-link
 ### Install SASS Loader -
 ```shell
 npm install sass-loader node-sass webpack --save-dev --no-bin-link
+```
+
+### Install Extract Text Webpack Plugin
+```shell
+npm install extract-text-webpack-plugin --save-dev --no-bin-link
 ```

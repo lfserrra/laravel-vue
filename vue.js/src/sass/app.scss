@@ -1,14 +1,11 @@
 //Material Icons
 @import url(http://fonts.googleapis.com/icon?family=Material+Icons);
-
 @import "~materialize-css/sass/components/color";
-
 @import "variables";
-
 //Materialize
 @import "~materialize-css/sass/materialize";
-
 //Components
 @import "modal";
 @import "dropdown";
 @import "cards";
+@import "sideNav";
