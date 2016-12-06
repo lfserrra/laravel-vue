@@ -1,6 +1,0 @@
-{
-	"host": "bills.dev",
-	"watchOptions": {
-		"usePolling": true
-	}
-}

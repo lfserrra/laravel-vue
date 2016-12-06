@@ -1,3 +1,6 @@
+import {BillPayResource} from '../resources';
+import {BillPayClass} from '../bill-pay/BillPayClass';
+
 const names = [
     'Conta de luz',
     'Conta de \u00e1gua',
@@ -8,9 +11,7 @@ const names = [
     'Gasolina'
 ];
 
-let BillPayClass = require('./BillPayClass');
-
-module.exports = {
+export default {
     template: `
     <div class="container">
         <h3>{{ title }}</h3>
@@ -81,7 +82,7 @@ module.exports = {
             let data = this.bill.toJSON();
 
             if (this.formType == 'insert') {
-                BillPay.save({}, data).then((response) => {
+                BillPayResource.save({}, data).then((response) => {
                     Materialize.toast('Conta criada com sucesso', 4000);
 
                     this.$dispatch('change-info-bill-pay');
@@ -89,7 +90,7 @@ module.exports = {
                     this.$router.go({name: 'bill-pay.list'});
                 });
             } else {
-                BillPay.update({id: this.bill.id}, data).then((response) => {
+                BillPayResource.update({id: this.bill.id}, data).then((response) => {
                     Materialize.toast('Conta editada com sucesso', 4000);
 
                     this.$dispatch('change-info-bill-pay');
@@ -100,7 +101,7 @@ module.exports = {
         },
 
         getBill(id) {
-            BillPay.get({id: id}).then((response) => {
+            BillPayResource.get({id: id}).then((response) => {
                 this.bill = new BillPayClass(response.data);
             });
         }

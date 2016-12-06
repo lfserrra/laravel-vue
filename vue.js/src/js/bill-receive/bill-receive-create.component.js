@@ -1,3 +1,6 @@
+import {BillReceiveResource} from '../resources';
+import {BillReceiveClass} from '../bill-receive/BillReceiveClass';
+
 const names = [
     'Conta de luz',
     'Conta de \u00e1gua',
@@ -8,9 +11,7 @@ const names = [
     'Gasolina'
 ];
 
-let BillReceiveClass = require('./BillReceiveClass');
-
-module.exports = {
+export default {
     template: `
     <div class="container">
         <h3>{{ title }}</h3>
@@ -81,7 +82,7 @@ module.exports = {
             let data = this.bill.toJSON();
 
             if (this.formType == 'insert') {
-                BillReceive.save({}, data).then((response) => {
+                BillReceiveResource.save({}, data).then((response) => {
                     Materialize.toast('Conta criada com sucesso', 4000);
 
                     this.$dispatch('change-info-bill-receive');
@@ -89,7 +90,7 @@ module.exports = {
                     this.$router.go({name: 'bill-receive.list'});
                 });
             } else {
-                BillReceive.update({id: this.bill.id}, data).then((response) => {
+                BillReceiveResource.update({id: this.bill.id}, data).then((response) => {
                     Materialize.toast('Conta editada com sucesso', 4000);
 
                     this.$dispatch('change-info-bill-receive');
@@ -100,7 +101,7 @@ module.exports = {
         },
 
         getBill(id) {
-            BillReceive.get({id: id}).then((response) => {
+            BillReceiveResource.get({id: id}).then((response) => {
                 this.bill = new BillReceiveClass(response.data);
             });
         }
