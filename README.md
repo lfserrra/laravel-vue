@@ -14,7 +14,7 @@ sudo npm install -g babel-cli node-sass gulp-cli webpack webpack-dev-server
 ### Install NPM Dependences
 ##Enter folder project (vue.js)
 ```shell
-npm install --no-bin-link
+npm install
 ```
 
 ### Install Babel Loader - https://github.com/babel/babel-loader

@@ -13,7 +13,7 @@ sudo npm install -g babel-cli node-sass gulp-cli webpack webpack-dev-server
 
 ### Install NPM Dependences
 ```shell
-npm install --no-bin-link
+npm install
 ```
 
 ### RUN

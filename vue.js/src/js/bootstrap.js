@@ -4,4 +4,3 @@ window.Vue = require('vue');
 
 require('vue-resource');
 require('./filters');
-require('./bill-receive/BillReceiveClass');

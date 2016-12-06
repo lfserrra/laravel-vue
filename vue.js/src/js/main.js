@@ -1,12 +1,12 @@
 import './bootstrap';
-import DashboardComponent from './dashboard/dashboard.component';
-import BillPayComponent from './bill-pay/bill-pay.component';
-import BillPayListComponent from './bill-pay/bill-pay-list.component';
-import BillPayCreateComponent from './bill-pay/bill-pay-create.component';
-import BillReceiveComponent from './bill-receive/bill-receive.component';
-import BillReceiveListComponent from './bill-receive/bill-receive-list.component';
-import BillReceiveCreateComponent from './bill-receive/bill-receive-create.component';
-import BillComponent from './Bill.vue';
+import Dashboard from './dashboard/Dashboard.vue';
+import BillPay from './bill-pay/bill-pay.vue';
+import BillPayList from './bill-pay/bill-pay-list.vue';
+import BillPayCreate from './bill-pay/bill-pay-create.vue';
+import BillReceive from './bill-receive/bill-receive.vue';
+import BillReceiveList from './bill-receive/bill-receive-list.vue';
+import BillReceiveCreate from './bill-receive/bill-receive-create.vue';
+import Bill from './Bill.vue';
 
 let VueRouter = require('vue-router');
 let router = new VueRouter();
@@ -14,58 +14,58 @@ let router = new VueRouter();
 router.map({
     '/': {
         name: 'dashboard',
-        component: DashboardComponent
+        component: Dashboard
     },
 
     '/bill-pays': {
-        component: BillPayComponent,
+        component: BillPay,
         subRoutes: {
             '/': {
                 name: 'bill-pay.list',
-                component: BillPayListComponent
+                component: BillPayList
             },
 
             '/create': {
                 name: 'bill-pay.create',
-                component: BillPayCreateComponent
+                component: BillPayCreate
             },
 
             '/:id/update': {
                 name: 'bill-pay.update',
-                component: BillPayCreateComponent
+                component: BillPayCreate
             }
         }
     },
 
     '/bill-receives': {
-        component: BillReceiveComponent,
+        component: BillReceive,
         subRoutes: {
             '/': {
                 name: 'bill-receive.list',
-                component: BillReceiveListComponent
+                component: BillReceiveList
             },
 
             '/create': {
                 name: 'bill-receive.create',
-                component: BillReceiveCreateComponent
+                component: BillReceiveCreate
             },
 
             '/:id/update': {
                 name: 'bill-receive.update',
-                component: BillReceiveCreateComponent
+                component: BillReceiveCreate
             }
         }
     },
 
     '*': {
-        component: DashboardComponent
+        component: Dashboard
     }
 
 });
 
 router.start({
     components: {
-        'bill-component': BillComponent
+        'bill-component': Bill
     }
 }, '#app');
 
